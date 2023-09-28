@@ -4,6 +4,7 @@ from fastapi            import FastAPI
 from sqlalchemy         import create_engine
 from sqlalchemy.orm     import sessionmaker
 
+
 env_path = os.path.join(os.path.dirname(os.path.dirname(os.path.dirname(__file__))), '.env')
 
 load_dotenv(dotenv_path=env_path)
@@ -25,6 +26,9 @@ engine = create_engine(SQLALCHEMY_DATABASE_URL)
 SessionLocal = sessionmaker(autocommit=False,autoflush=False,bind=engine)
 
 
+def include_router(app):   
+    from api.base           import api_router
+    app.include_router(api_router)
 
 def create_tables(): 
     from models.user import Base 
@@ -34,4 +38,5 @@ def create_tables():
 def start_application():
     app = FastAPI(title=settings.PROJECT_NAME, version=settings.PROJECT_VERSION)
     create_tables()
+    include_router(app)
     return app

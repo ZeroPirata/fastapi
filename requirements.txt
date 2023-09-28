@@ -15,3 +15,6 @@ uvicorn==0.23.2
 python-dotenv==1.0.0
 SQLAlchemy==2.0.13
 psycopg2==2.9.6 
+alembic==1.11.1
+pydantic[email] 
+passlib[bcrypt] 
